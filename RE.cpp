@@ -3,7 +3,7 @@
 //
 
 #include "RE.h"
-
+#include <algorithm>
 #include <utility>
 
 void RE::print() const {
@@ -99,8 +99,8 @@ void RE::recursiveSplit(std::string regex){
 }
 RE::RE(std::string regex, char eps) {
     eps_char = eps;
-    recursiveSplit(std::move(regex));
-    // Parse alphabet
+    recursiveSplit(regex);
+    parseAlfabet(regex);
 }
 
 RE::RE() {
@@ -109,4 +109,13 @@ RE::RE() {
 void RE::addLeftAndRight(){
     left = new RE;
     right = new RE;
+}
+
+void RE::parseAlfabet(std::string regex){
+    std::vector<char> ignored_chars = {eps_char, '(', ')', '*', '+'};
+    for(char i: regex){
+        if(std::find(ignored_chars.begin(), ignored_chars.end(), i) == ignored_chars.end()){
+            alfabet.insert(i);
+        }
+    }
 }

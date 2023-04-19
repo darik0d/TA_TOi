@@ -6,6 +6,7 @@
 #define TA_DFA_1_RE_H
 #include <iostream>
 #include "ENFA.h"
+#include <set>
 
 class RE {
 private:
@@ -13,18 +14,18 @@ private:
     RE* right;
     char operation;
     char symbool = '\0';
-    std::vector<std::string> alfabet;
+    std::set<char> alfabet;
     bool kleene_ster = false;
     char eps_char;
     void recursiveSplit(std::string regex);
     void addLeftAndRight();
 public:
     RE();
-
     RE(std::string regex, char eps_char);
-
+    //bool isSymbool()const;
     void print() const;
     ENFA toENFA() const;
+    void parseAlfabet(std::string regex);
 };
 
 

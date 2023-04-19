@@ -5,7 +5,8 @@ using namespace std;
 
 int main() {
     RE re("(m+y)*+(e+y+m+i)s*",'e');
-//    ENFA enfa = re.toENFA();
+    ENFA enfa = re.toENFA();
+//    ENFA enfa = ENFA();
 //    enfa.printStats();
 //    // geven true
 //    cout << boolalpha << enfa.accepts("ys") << endl;

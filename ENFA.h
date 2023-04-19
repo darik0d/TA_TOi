@@ -16,6 +16,8 @@ private:
     std::vector<State*> all_states;
     State* begin_state;
 public:
+    ENFA();
+
     void printStats() const;
     bool accepts(std::string inp) const;
 };

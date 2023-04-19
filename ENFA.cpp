@@ -11,3 +11,5 @@ void ENFA::printStats() const{
 bool ENFA::accepts(std::string inp) const{
 
 }
+
+ENFA::ENFA() {}
