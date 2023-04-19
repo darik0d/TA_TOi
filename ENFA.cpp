@@ -12,4 +12,9 @@ bool ENFA::accepts(std::string inp) const{
 
 }
 
-ENFA::ENFA() {}
+ENFA::ENFA() {
+}
+
+void ENFA::addArc(State* from_state, State* to_state, char symbol){
+    from_state->addTransition(symbol, to_state);
+}

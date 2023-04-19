@@ -13,7 +13,7 @@ DFA::DFA(std::string filename) {
     // Alfabet
     std::tuple<int,int,int> tupl;
     std::cout << std::setw(4) << j << std::endl;
-    alfabet = j["alphabet"].get<std::vector<std::string> >();
+    alfabet = j["alphabet"].get<std::set<char> >();
     // States
     std::vector<json> json_states = j["states"].get<std::vector<json> >();
     std::map<std::string, State*> states;
@@ -27,7 +27,7 @@ DFA::DFA(std::string filename) {
     for(auto transition:json_transitions){
         State* to_edit = states.at(transition.at("from"));
         State* to_state = states.at(transition.at("to"));
-        std::string char_inp = transition["input"].get<std::string>();
+        char char_inp = transition["input"].get<char>();
         to_edit->addTransition(char_inp, to_state);
     }
     // Begin state
@@ -42,7 +42,7 @@ DFA::DFA(std::string filename) {
 bool DFA::accepts(std::string inp) const{
     State* current = begin_state;
     for(int i = 0; i < inp.size(); i++){
-        current = current->getTransition(std::string(1, inp[i]));
+        current = current->getTransition(inp[i]);
     }
     //const State to_find = current;
     return current->isAccepting();

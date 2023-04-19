@@ -8,18 +8,19 @@
 #include <vector>
 #include "iostream"
 #include "State.h"
-
+#include <set>
 class ENFA {
 private:
-    std::vector<std::string> alfabet;
+    std::set<char> alphabet;
     std::vector<State*> accepting_states;
     std::vector<State*> all_states;
     State* begin_state;
+    void addArc(State* from_state, State* to_state, char symbol);
 public:
     ENFA();
 
     void printStats() const;
-    bool accepts(std::string inp) const;
+    bool accepts(std::string input_string) const;
 };
 
 

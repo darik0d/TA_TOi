@@ -13,10 +13,10 @@
 #include <iomanip>
 #include "json.hpp"
 #include "RE.h"
-
+#include <set>
 class DFA {
 private:
-    std::vector<std::string> alfabet;
+    std::set<char> alfabet;
     // State: <input_symb, output_state>
     std::vector<State*> accepting_states;
     std::vector<State*> all_states;

@@ -13,14 +13,14 @@ private:
     std::string name;
     bool starting;
     bool accepting;
-    std::map<std::string, State*> transitions;
+    std::map<char, State*> transitions;
 public:
     State();
     State(const std::string &name, bool starting, bool accepting);
     bool isStarting(){return starting;}
     bool isAccepting(){return accepting;}
-    void addTransition(std::string sym, State*& to);
-    State* getTransition(std::string sym);
+    void addTransition(char sym, State*& to);
+    State* getTransition(char sym);
 
     const std::string &getName() const;
 };

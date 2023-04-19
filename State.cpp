@@ -9,11 +9,11 @@ State::State(const std::string &name, bool starting, bool accepting) : name(name
 
 State::State() {}
 
-void State::addTransition(std::string sym, State*& to){
+void State::addTransition(char sym, State*& to){
     transitions.insert(std::make_pair(sym, to));
 }
 
-State* State::getTransition(std::string sym){
+State* State::getTransition(char sym){
     return transitions.at(sym);
 }
 
