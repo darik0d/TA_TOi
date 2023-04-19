@@ -14,6 +14,7 @@ private:
     char operation;
     char symbool = '\0';
     std::vector<std::string> alfabet;
+    bool kleene_ster = false;
     char eps_char;
     void recursiveSplit(std::string regex);
     void addLeftAndRight();

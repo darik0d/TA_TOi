@@ -15,7 +15,6 @@ ENFA RE::toENFA() const{
 }
 void RE::recursiveSplit(std::string regex){
     addLeftAndRight();
-    // TODO: star symbol
     // Recursive
     // Only one char? add it to symbool. No recursive call
     if(regex.size() == 0) return; // normaal gezien kan dat nooit
@@ -35,11 +34,20 @@ void RE::recursiveSplit(std::string regex){
                 if(ind + 1 == regex.size()){
                     // There is no right regex, oeps
                 }
+                else if(regex[ind + 1] == '*'){
+                    left->kleene_ster = true;
+                    if(regex[ind+2] == '+'){
+                        operation = '+';
+                        right->recursiveSplit(regex.substr(ind+3));
+                    }else{
+                        operation = '.';
+                        right->recursiveSplit(regex.substr(ind+2));
+                    }
+                }
                 else if(regex[ind + 1] == '+'){
                     operation = '+';
                     right->recursiveSplit(regex.substr(ind+2));
                 }
-                // We skippen voorlopig geval *
                 else{
                     operation = '.';
                     right->recursiveSplit(regex.substr(ind+1));
@@ -53,7 +61,8 @@ void RE::recursiveSplit(std::string regex){
         if (regex.size() == 2){
             // Er zijn twee mogelijkheden ab of a*
             if(regex[1] == '*'){
-                // TODO
+                symbool = regex[0];
+                kleene_ster = true;
                 return;
             }
             else{
@@ -69,7 +78,15 @@ void RE::recursiveSplit(std::string regex){
             operation = '+';
         }
         else if(regex[1] == '*'){
-            // ???
+            left -> symbool = regex[0];
+            left -> kleene_ster = true;
+            if(regex[2] == '+'){
+                operation = '+';
+                right->recursiveSplit(regex.substr(3));
+            }else{
+                operation = '.';
+                right->recursiveSplit(regex.substr(2));
+            }
             return;
         }
         else{
