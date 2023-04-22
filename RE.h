@@ -12,18 +12,17 @@ class RE {
 private:
     RE* left;
     RE* right;
-    char operation;
+    char operation = '\0';
     char symbool = '\0';
     std::set<char> alfabet;
     bool kleene_ster = false;
     char eps_char;
     void recursiveSplit(std::string regex);
     void addLeftAndRight();
+    bool isChar()const;
 public:
     RE();
     RE(std::string regex, char eps_char);
-    //bool isSymbool()const;
-    void print() const;
     ENFA toENFA() const;
     void parseAlfabet(std::string regex);
 };

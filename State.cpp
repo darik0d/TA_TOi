@@ -14,7 +14,14 @@ void State::addTransition(char sym, State*& to){
 }
 
 State* State::getTransition(char sym){
-    return transitions.at(sym);
+    auto all_transitions = transitions.equal_range(sym);
+    // Return only the first transition
+    return all_transitions.first->second;
+}
+
+std::pair <std::multimap<char,State*>::iterator, std::multimap<char,State*>::iterator> State::getTransitions(char sym){
+    auto all_transitions = transitions.equal_range(sym);
+    return all_transitions;
 }
 
 const std::string &State::getName() const {

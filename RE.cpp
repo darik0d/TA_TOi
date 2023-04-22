@@ -1,20 +1,38 @@
 //
 // Created by dasha on 15.04.2023.
 //
+// TODO:
+// 
 
 #include "RE.h"
 #include <algorithm>
 #include <utility>
 
-void RE::print() const {
-    std::cout << "fg*" << std::endl;
-}
 
 ENFA RE::toENFA() const{
-
+    if(isChar()){
+        // epsilon construction for single char. return it
+        ENFA to_return;
+        return to_return;
+    }
+    else if(kleene_ster){
+        // kleene ster construction. return it with recursion
+    }
+    else if(operation == '+'){
+        // plus construction with recursion
+    }
+    else if(operation == '.'){
+        // . construction with recursion
+    }
+}
+bool RE::isChar()const{
+    if(symbool != '\0' && operation == '\0') return true;
+    return false;
 }
 void RE::recursiveSplit(std::string regex){
     addLeftAndRight();
+    left->eps_char = eps_char;
+    right->eps_char = eps_char;
     // Recursive
     // Only one char? add it to symbool. No recursive call
     if(regex.size() == 0) return; // normaal gezien kan dat nooit

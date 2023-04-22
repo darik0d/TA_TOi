@@ -13,7 +13,7 @@ private:
     std::string name;
     bool starting;
     bool accepting;
-    std::map<char, State*> transitions;
+    std::multimap<char, State*> transitions;
 public:
     State();
     State(const std::string &name, bool starting, bool accepting);
@@ -21,6 +21,7 @@ public:
     bool isAccepting(){return accepting;}
     void addTransition(char sym, State*& to);
     State* getTransition(char sym);
+    std::pair <std::multimap<char,State*>::iterator, std::multimap<char,State*>::iterator> getTransitions(char sym);
 
     const std::string &getName() const;
 };
