@@ -4,7 +4,7 @@
 
 #include "ENFA.h"
 
-std::set<State*> ENFA::epsilon_closure(State* s, std::set<State*> already_evaluated){
+std::set<State*> ENFA::epsilon_closure(State* s, std::set<State*> already_evaluated)const{
     std::set<State*> to_return;
     to_return.insert(s);
     already_evaluated.insert(s);
@@ -20,7 +20,7 @@ std::set<State*> ENFA::epsilon_closure(State* s, std::set<State*> already_evalua
     }
     return to_return;
 }
-std::set<State*> ENFA::epsilon_closure(State* s){
+std::set<State*> ENFA::epsilon_closure(State* s) const{
     std::set<State*> to_return;
     std::set<State*> already_evaluated;
     to_return.insert(s);
@@ -69,16 +69,29 @@ void ENFA::printStats() const{
 }
 
 bool ENFA::accepts(const std::string& inp) const{
-    auto current_states = begin_state->getTransitions(eps_char);
     State* current_state = begin_state;
-//    State* next = begin_state;
-//    for(char c: inp){
-//        for(auto it = next->getTransitions(c);)
-//        if(next == nullptr) return false;
-//    }
+    // Verzamel eclosure
+    auto eclosure = epsilon_closure(current_state);
+    for(char c: inp){
+        std::set<State*> next_states;
+        // Maak een stap met gegeven staten;
+        for(State* s:eclosure){
+            auto to_add = s->getTransitions(c);
+            for(auto it = to_add.first; it != to_add.second; it++) next_states.insert(it->second);
+        }
+        // Als er geen stappen zijn, return false;
+        if(next_states.empty()) return false;
+        eclosure.clear();
+        for(State*s: next_states){
+            auto to_add = epsilon_closure(s);
+            eclosure.insert(to_add.begin(), to_add.end());
+        }
+    }
 //    // Check if state is accepting or not
-//    if(next->isAccepting()) return true;
-//    return false;
+    for(State* s:eclosure) {
+        if(s->isAccepting()) return true;
+    }
+    return false;
 }
 
 ENFA::ENFA() {

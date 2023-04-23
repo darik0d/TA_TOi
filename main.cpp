@@ -4,22 +4,18 @@
 using namespace std;
 
 int main() {
-    //RE re("(m+y)*+(e+y+m+i)s",'e');
-    RE re("e*",'e');
+    RE re("(m+y)*+(e+y+m+i)s",'e');
     ENFA enfa = re.toENFA();
-    State* begin = enfa.getBeginState();
-    auto iets = enfa.epsilon_closure(begin);
-    cout << boolalpha << enfa.accepts("ab") << endl;
-    //enfa.printStats();
+    enfa.printStats();
 //    // geven true
-//    cout << boolalpha << enfa.accepts("ys") << endl;
-//    cout << boolalpha << enfa.accepts("mmyyymmmym") << endl;
-//    cout << boolalpha << enfa.accepts("s") << endl;
+    cout << boolalpha << enfa.accepts("ys") << endl;
+    cout << boolalpha << enfa.accepts("mmyyymmmym") << endl;
+    cout << boolalpha << enfa.accepts("s") << endl;
 //
 //    // geven false
-//    cout << boolalpha << enfa.accepts("ss") << endl;
-//    cout << boolalpha << enfa.accepts("ims") << endl;
-//    cout << boolalpha << enfa.accepts("mimis") << endl;
+    cout << boolalpha << enfa.accepts("ss") << endl;
+    cout << boolalpha << enfa.accepts("ims") << endl;
+    cout << boolalpha << enfa.accepts("mimis") << endl;
 
     return 0;
 }
