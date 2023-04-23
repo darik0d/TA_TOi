@@ -28,6 +28,7 @@ public:
     void setAccepting(bool accepting);
 
     const std::string &getName() const;
+    std::multimap<char, State*> getAllTransitions() const;
 };
 
 

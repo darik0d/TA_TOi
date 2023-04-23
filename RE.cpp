@@ -39,17 +39,16 @@ ENFA RE::toENFA() const{
         for(auto s:up.getAllStates()) enfa.addState(s, false, false);
         for(auto s:down.getAllStates()) enfa.addState(s, false, false);
 
-        up.getBeginState()->setStarting(false);
-        down.getBeginState()->setStarting(false);
+        // TODO: waarom mag dit niet?
+        //up.getBeginState()->setStarting(false);
+        //down.getBeginState()->setStarting(false);
     }
     else if(operation == '.'){
         ENFA first = left->toENFA();
         ENFA second = right->toENFA();
-        State* begin = new State;
-        State* end = new State;
-        enfa.addState(begin, true, false);
-        enfa.addState(end, false, true);
-        enfa.addArc(begin, first.getBeginState(), eps_char);
+//        State* begin = first.getBeginState();
+//        enfa.addState(begin, true, false);
+//        enfa.addArc(begin, first.getBeginState(), eps_char);
         for(auto s:first.getAcceptingStates()){
             s->setAccepting(false);
             enfa.addArc(s, second.getBeginState(), eps_char);
@@ -57,7 +56,11 @@ ENFA RE::toENFA() const{
         first.getBeginState()->setStarting(false);
         second.getBeginState()->setStarting(false);
         // Voeg alle staten toe
-        for(auto s:first.getAllStates()) enfa.addState(s, false, false);
+        for(auto s:first.getAllStates()) {
+            if(s->isStarting() && !s->isAccepting()) enfa.addState(s, true, false);
+            else if(s->isStarting() && s->isAccepting()) enfa.addState(s, true, true);
+            else enfa.addState(s, false, false);
+        }
         for(auto s:second.getAllStates()) {
             if(s->isAccepting()) enfa.addState(s, false, true);
             else enfa.addState(s, false, false);

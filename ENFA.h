@@ -37,6 +37,8 @@ public:
     void setEpsChar(char epsChar);
 
     const std::vector<State *> &getAllStates() const;
+
+    void setBeginState(State *beginState);
 };
 
 

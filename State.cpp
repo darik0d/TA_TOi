@@ -18,6 +18,9 @@ State* State::getTransition(char sym){
     // Return only the first transition
     return all_transitions.first->second;
 }
+std::multimap<char, State*> State::getAllTransitions() const{
+    return transitions;
+}
 
 std::pair <std::multimap<char,State*>::iterator, std::multimap<char,State*>::iterator> State::getTransitions(char sym){
     auto all_transitions = transitions.equal_range(sym);

@@ -14,6 +14,32 @@ no_of_transitions[y]=2
 degree[0]=1
 degree[1]=18
 degree[2]=7*/
+    std::cout << "no_of_states=" << all_states.size() << std::endl;
+    std::map<char, int> transitions;
+    std::map<int, int> degrees;
+
+    // set default values (efficient, but why not?..)
+    for(char c:alphabet) transitions.insert(std::make_pair(c, 0));
+    transitions.insert(std::make_pair(eps_char, 0));
+
+    // Tel het aantal transities en degrees
+    for(auto s:all_states){
+        // transities
+        for(char c: alphabet){
+            int to_add = std::distance(s->getTransitions(c).first, s->getTransitions(c).second);
+            transitions.at(c) += to_add;
+        }
+        // degrees
+        int degree = s->getAllTransitions().size();
+        if(degrees.find(degree) != degrees.end()) degrees.at(degree) += 1;
+        else degrees.insert(std::make_pair(degree, 1));
+
+        transitions.at(eps_char) += std::distance(s->getTransitions(eps_char).first, s->getTransitions(eps_char).second);
+    }
+    // cout!
+    std::cout << "no_of_transitions=[" << eps_char << "]=" << transitions.at(eps_char) << std::endl;
+    for(char c: alphabet) std::cout << "no_of_transitions=[" << c << "]=" << transitions.at(c) << std::endl;
+    for(auto it = degrees.begin(); it != degrees.end(); it++) std::cout << "no_of_transitions=[" << it->first << "]=" << it->second << std::endl;
 }
 
 bool ENFA::accepts(const std::string& inp) const{
@@ -80,4 +106,8 @@ void ENFA::setEpsChar(char epsChar) {
 
 const std::vector<State *> &ENFA::getAllStates() const {
     return all_states;
+}
+
+void ENFA::setBeginState(State *beginState) {
+    begin_state = beginState;
 }
