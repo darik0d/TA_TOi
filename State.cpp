@@ -27,3 +27,11 @@ std::pair <std::multimap<char,State*>::iterator, std::multimap<char,State*>::ite
 const std::string &State::getName() const {
     return name;
 }
+
+void State::setStarting(bool starting) {
+    State::starting = starting;
+}
+
+void State::setAccepting(bool accepting) {
+    State::accepting = accepting;
+}

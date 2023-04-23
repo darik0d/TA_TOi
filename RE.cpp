@@ -1,8 +1,9 @@
 //
 // Created by dasha on 15.04.2023.
 //
-// TODO:
-// 
+/*
+ * TODO:
+ * */
 
 #include "RE.h"
 #include <algorithm>
@@ -10,19 +11,61 @@
 
 
 ENFA RE::toENFA() const{
+    ENFA enfa;
+    enfa.setAlphabet(alfabet);
+    enfa.setEpsChar(eps_char);
     if(isChar()){
         // epsilon construction for single char. return it
-        ENFA to_return;
-        return to_return;
-    }
-    else if(kleene_ster){
-        // kleene ster construction. return it with recursion
+        enfa = enfa.symboolENFA(symbool);
     }
     else if(operation == '+'){
-        // plus construction with recursion
+        ENFA up = left->toENFA();
+        ENFA down = right->toENFA();
+        State* begin = new State;
+        State* end = new State;
+        enfa.addState(begin, true, false);
+        enfa.addState(end, false, true);
+        enfa.addArc(begin, up.getBeginState(), eps_char);
+        enfa.addArc(begin, down.getBeginState(), eps_char);
+        for(auto s: up.getAcceptingStates()){
+            s->setAccepting(false);
+            enfa.addArc(s, end, eps_char);
+        }
+        for(auto s: down.getAcceptingStates()) {
+            s->setAccepting(false);
+            enfa.addArc(s, end, eps_char);
+        }
     }
     else if(operation == '.'){
-        // . construction with recursion
+        ENFA first = left->toENFA();
+        ENFA second = right->toENFA();
+        State* begin = new State;
+        State* end = new State;
+        enfa.addState(begin, true, false);
+        enfa.addState(end, false, true);
+        enfa.addArc(begin, first.getBeginState(), eps_char);
+        for(auto s:first.getAcceptingStates()){
+            s->setAccepting(false);
+            enfa.addArc(s, second.getBeginState(), eps_char);
+        }
+    }
+    if(kleene_ster){
+            ENFA to_return;
+            State* begin = new State;
+            State* end = new State;
+            to_return.addState(begin, true, false);
+            to_return.addState(end, false, true);
+            to_return.addArc(begin, enfa.getBeginState(), eps_char);
+            for(auto s:enfa.getAcceptingStates()){
+                s->setAccepting(false);
+                to_return.addArc(s, end, eps_char);
+                to_return.addArc(s,enfa.getBeginState(), eps_char);
+            }
+            // enfa.getBeginState()->setStarting(false);
+            to_return.addArc(begin, end, eps_char);
+            return to_return;
+    }else{
+        return enfa;
     }
 }
 bool RE::isChar()const{

@@ -23,6 +23,10 @@ public:
     State* getTransition(char sym);
     std::pair <std::multimap<char,State*>::iterator, std::multimap<char,State*>::iterator> getTransitions(char sym);
 
+    void setStarting(bool starting);
+
+    void setAccepting(bool accepting);
+
     const std::string &getName() const;
 };
 

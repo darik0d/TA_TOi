@@ -15,12 +15,26 @@ private:
     std::vector<State*> accepting_states;
     std::vector<State*> all_states;
     State* begin_state;
-    void addArc(State* from_state, State* to_state, char symbol);
+    char eps_char;
 public:
     ENFA();
-
     void printStats() const;
     bool accepts(std::string input_string) const;
+    void addState(State* state, bool starting, bool accepting);
+    ENFA symboolENFA(char symbool);
+    void addArc(State* from_state, State* to_state, char symbol);
+
+    const std::set<char> &getAlphabet() const;
+
+    void setAlphabet(const std::set<char> &alphabet);
+
+    const std::vector<State *> &getAcceptingStates() const;
+
+    State *getBeginState() const;
+
+    char getEpsChar() const;
+
+    void setEpsChar(char epsChar);
 };
 
 
