@@ -5,15 +5,7 @@
 #include "ENFA.h"
 
 void ENFA::printStats() const{
-/*no_of_states=26
-no_of_transitions[e]=26
-no_of_transitions[i]=1
-no_of_transitions[m]=2
-no_of_transitions[s]=1
-no_of_transitions[y]=2
-degree[0]=1
-degree[1]=18
-degree[2]=7*/
+
     std::cout << "no_of_states=" << all_states.size() << std::endl;
     std::map<char, int> transitions;
     std::map<int, int> degrees;
@@ -44,9 +36,12 @@ degree[2]=7*/
 
 bool ENFA::accepts(const std::string& inp) const{
     State* current = begin_state;
+    State* next = begin_state;
     for(char c: inp){
-
+        next = current->getTransition(c);
+        current = next;
     }
+    // Check if state is accepting or not
 }
 
 ENFA::ENFA() {

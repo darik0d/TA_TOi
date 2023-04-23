@@ -4,9 +4,10 @@
 using namespace std;
 
 int main() {
-    RE re("(m+y)*+(e+y+m+i)s",'e');
-    //RE re("ab",'e');
+    //RE re("(m+y)*+(e+y+m+i)s",'e');
+    RE re("ab",'e');
     ENFA enfa = re.toENFA();
+    cout << boolalpha << enfa.accepts("a") << endl;
     enfa.printStats();
 //    // geven true
 //    cout << boolalpha << enfa.accepts("ys") << endl;

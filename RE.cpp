@@ -46,6 +46,7 @@ ENFA RE::toENFA() const{
     else if(operation == '.'){
         ENFA first = left->toENFA();
         ENFA second = right->toENFA();
+        enfa.setBeginState(first.getBeginState());
 //        State* begin = first.getBeginState();
 //        enfa.addState(begin, true, false);
 //        enfa.addArc(begin, first.getBeginState(), eps_char);
@@ -65,6 +66,7 @@ ENFA RE::toENFA() const{
             if(s->isAccepting()) enfa.addState(s, false, true);
             else enfa.addState(s, false, false);
         }
+        enfa.getBeginState()->setStarting(true);
     }
     if(kleene_ster){
             ENFA to_return = *(new ENFA);
