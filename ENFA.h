@@ -19,7 +19,7 @@ private:
 public:
     ENFA();
     void printStats() const;
-    bool accepts(std::string input_string) const;
+    bool accepts(const std::string& input_string) const;
     void addState(State* state, bool starting, bool accepting);
     ENFA symboolENFA(char symbool);
     void addArc(State* from_state, State* to_state, char symbol);
@@ -35,6 +35,8 @@ public:
     char getEpsChar() const;
 
     void setEpsChar(char epsChar);
+
+    const std::vector<State *> &getAllStates() const;
 };
 
 

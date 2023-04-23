@@ -16,8 +16,11 @@ degree[1]=18
 degree[2]=7*/
 }
 
-bool ENFA::accepts(std::string inp) const{
+bool ENFA::accepts(const std::string& inp) const{
+    State* current = begin_state;
+    for(char c: inp){
 
+    }
 }
 
 ENFA::ENFA() {
@@ -73,4 +76,8 @@ char ENFA::getEpsChar() const {
 
 void ENFA::setEpsChar(char epsChar) {
     eps_char = epsChar;
+}
+
+const std::vector<State *> &ENFA::getAllStates() const {
+    return all_states;
 }

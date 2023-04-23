@@ -11,7 +11,7 @@
 
 
 ENFA RE::toENFA() const{
-    ENFA enfa;
+    ENFA enfa = *(new ENFA);
     enfa.setAlphabet(alfabet);
     enfa.setEpsChar(eps_char);
     if(isChar()){
@@ -35,6 +35,10 @@ ENFA RE::toENFA() const{
             s->setAccepting(false);
             enfa.addArc(s, end, eps_char);
         }
+        // Voeg alle staten toe aan ENFA
+        for(auto s:up.getAllStates()) enfa.addState(s, false, false);
+        for(auto s:down.getAllStates()) enfa.addState(s, false, false);
+
         up.getBeginState()->setStarting(false);
         down.getBeginState()->setStarting(false);
     }
@@ -52,9 +56,15 @@ ENFA RE::toENFA() const{
         }
         first.getBeginState()->setStarting(false);
         second.getBeginState()->setStarting(false);
+        // Voeg alle staten toe
+        for(auto s:first.getAllStates()) enfa.addState(s, false, false);
+        for(auto s:second.getAllStates()) {
+            if(s->isAccepting()) enfa.addState(s, false, true);
+            else enfa.addState(s, false, false);
+        }
     }
     if(kleene_ster){
-            ENFA to_return;
+            ENFA to_return = *(new ENFA);
             State* begin = new State;
             State* end = new State;
             to_return.addState(begin, true, false);
@@ -65,9 +75,10 @@ ENFA RE::toENFA() const{
                 to_return.addArc(s, end, eps_char);
                 to_return.addArc(s,enfa.getBeginState(), eps_char);
             }
-            // enfa.getBeginState()->setStarting(false);
             to_return.addArc(begin, end, eps_char);
             enfa.getBeginState()->setStarting(false);
+            // Voeg alle staten van ENFA toe
+            for(auto s:enfa.getAllStates()) to_return.addState(s, false, false);
             return to_return;
     }else{
         return enfa;
