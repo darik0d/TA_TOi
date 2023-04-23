@@ -35,6 +35,8 @@ ENFA RE::toENFA() const{
             s->setAccepting(false);
             enfa.addArc(s, end, eps_char);
         }
+        up.getBeginState()->setStarting(false);
+        down.getBeginState()->setStarting(false);
     }
     else if(operation == '.'){
         ENFA first = left->toENFA();
@@ -48,6 +50,8 @@ ENFA RE::toENFA() const{
             s->setAccepting(false);
             enfa.addArc(s, second.getBeginState(), eps_char);
         }
+        first.getBeginState()->setStarting(false);
+        second.getBeginState()->setStarting(false);
     }
     if(kleene_ster){
             ENFA to_return;
@@ -63,6 +67,7 @@ ENFA RE::toENFA() const{
             }
             // enfa.getBeginState()->setStarting(false);
             to_return.addArc(begin, end, eps_char);
+            enfa.getBeginState()->setStarting(false);
             return to_return;
     }else{
         return enfa;
