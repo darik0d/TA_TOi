@@ -14,6 +14,7 @@ void State::addTransition(char sym, State*& to){
 }
 
 State* State::getTransition(char sym){
+    if(transitions.find(sym) == transitions.end()) return nullptr;
     auto all_transitions = transitions.equal_range(sym);
     // Return only the first transition
     return all_transitions.first->second;

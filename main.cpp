@@ -5,10 +5,12 @@ using namespace std;
 
 int main() {
     //RE re("(m+y)*+(e+y+m+i)s",'e');
-    RE re("ab",'e');
+    RE re("e*",'e');
     ENFA enfa = re.toENFA();
-    cout << boolalpha << enfa.accepts("a") << endl;
-    enfa.printStats();
+    State* begin = enfa.getBeginState();
+    auto iets = enfa.epsilon_closure(begin);
+    cout << boolalpha << enfa.accepts("ab") << endl;
+    //enfa.printStats();
 //    // geven true
 //    cout << boolalpha << enfa.accepts("ys") << endl;
 //    cout << boolalpha << enfa.accepts("mmyyymmmym") << endl;

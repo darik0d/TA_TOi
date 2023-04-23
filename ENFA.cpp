@@ -4,6 +4,40 @@
 
 #include "ENFA.h"
 
+std::set<State*> ENFA::epsilon_closure(State* s, std::set<State*> already_evaluated){
+    std::set<State*> to_return;
+    to_return.insert(s);
+    already_evaluated.insert(s);
+    // Pak eps closure van 1 stap eps transities
+    auto to_evaluate = s->getTransitions(eps_char);
+    for(auto it = to_evaluate.first; it != to_evaluate.second; it++){
+        if(to_return.find(it->second) != to_return.end() || already_evaluated.find(it->second) != already_evaluated.end()) continue;
+        std::set<State*> e_closure = epsilon_closure(it->second, already_evaluated);
+        // What to do with this closure? Insert!
+        for(auto state:e_closure){
+            to_return.insert(state);
+        }
+    }
+    return to_return;
+}
+std::set<State*> ENFA::epsilon_closure(State* s){
+    std::set<State*> to_return;
+    std::set<State*> already_evaluated;
+    to_return.insert(s);
+    already_evaluated.insert(s);
+    // Pak eps closure van 1 stap eps transities
+    auto to_evaluate = s->getTransitions(eps_char);
+    for(auto it = to_evaluate.first; it != to_evaluate.second; it++){
+        if(to_return.find(it->second) != to_return.end() || already_evaluated.find(it->second) != already_evaluated.end()) continue;
+        std::set<State*> e_closure = epsilon_closure(it->second, already_evaluated);
+        // What to do with this closure? Insert!
+        for(auto state:e_closure){
+            to_return.insert(state);
+        }
+    }
+    return to_return;
+}
+
 void ENFA::printStats() const{
 
     std::cout << "no_of_states=" << all_states.size() << std::endl;
@@ -35,13 +69,16 @@ void ENFA::printStats() const{
 }
 
 bool ENFA::accepts(const std::string& inp) const{
-    State* current = begin_state;
-    State* next = begin_state;
-    for(char c: inp){
-        next = current->getTransition(c);
-        current = next;
-    }
-    // Check if state is accepting or not
+    auto current_states = begin_state->getTransitions(eps_char);
+    State* current_state = begin_state;
+//    State* next = begin_state;
+//    for(char c: inp){
+//        for(auto it = next->getTransitions(c);)
+//        if(next == nullptr) return false;
+//    }
+//    // Check if state is accepting or not
+//    if(next->isAccepting()) return true;
+//    return false;
 }
 
 ENFA::ENFA() {
@@ -67,6 +104,7 @@ void ENFA::addState(State* state, bool starting, bool accepting){
 }
 ENFA ENFA::symboolENFA(char symbool){
     ENFA to_return;
+    to_return.setEpsChar(eps_char);
     State* begin = new State;
     State* end = new State;
     begin->addTransition(symbool, end);

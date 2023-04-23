@@ -16,6 +16,7 @@ private:
     std::vector<State*> all_states;
     State* begin_state;
     char eps_char;
+    std::set<State*> epsilon_closure(State* s, std::set<State*> already_evaluated);
 public:
     ENFA();
     void printStats() const;
@@ -39,6 +40,8 @@ public:
     const std::vector<State *> &getAllStates() const;
 
     void setBeginState(State *beginState);
+
+    std::set<State*> epsilon_closure(State*);
 };
 
 

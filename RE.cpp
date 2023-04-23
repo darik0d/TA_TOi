@@ -70,6 +70,7 @@ ENFA RE::toENFA() const{
     }
     if(kleene_ster){
             ENFA to_return = *(new ENFA);
+            to_return.setEpsChar(eps_char);
             State* begin = new State;
             State* end = new State;
             to_return.addState(begin, true, false);
