@@ -65,7 +65,7 @@ void ENFA::printStats() const{
     // cout!
     std::cout << "no_of_transitions=[" << eps_char << "]=" << transitions.at(eps_char) << std::endl;
     for(char c: alphabet) std::cout << "no_of_transitions=[" << c << "]=" << transitions.at(c) << std::endl;
-    for(auto it = degrees.begin(); it != degrees.end(); it++) std::cout << "no_of_transitions=[" << it->first << "]=" << it->second << std::endl;
+    for(auto it = degrees.begin(); it != degrees.end(); it++) std::cout << "degree=[" << it->first << "]=" << it->second << std::endl;
 }
 
 bool ENFA::accepts(const std::string& inp) const{
