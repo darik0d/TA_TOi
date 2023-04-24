@@ -79,6 +79,12 @@ build CMakeFiles/TA_DFA_1.dir/ENFA.cpp.obj: CXX_COMPILER__TA_DFA_1_Debug C$:/Use
   OBJECT_DIR = CMakeFiles\TA_DFA_1.dir
   OBJECT_FILE_DIR = CMakeFiles\TA_DFA_1.dir
 
+build CMakeFiles/TA_DFA_1.dir/Table.cpp.obj: CXX_COMPILER__TA_DFA_1_Debug C$:/Users/dasha/CLionProjects/TA_DFA_1/Table.cpp || cmake_object_order_depends_target_TA_DFA_1
+  DEP_FILE = CMakeFiles\TA_DFA_1.dir\Table.cpp.obj.d
+  FLAGS = -g -std=gnu++11
+  OBJECT_DIR = CMakeFiles\TA_DFA_1.dir
+  OBJECT_FILE_DIR = CMakeFiles\TA_DFA_1.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target TA_DFA_1
@@ -87,7 +93,7 @@ build CMakeFiles/TA_DFA_1.dir/ENFA.cpp.obj: CXX_COMPILER__TA_DFA_1_Debug C$:/Use
 #############################################
 # Link the executable TA_DFA_1.exe
 
-build TA_DFA_1.exe: CXX_EXECUTABLE_LINKER__TA_DFA_1_Debug CMakeFiles/TA_DFA_1.dir/main.cpp.obj CMakeFiles/TA_DFA_1.dir/DFA.cpp.obj CMakeFiles/TA_DFA_1.dir/State.cpp.obj CMakeFiles/TA_DFA_1.dir/RE.cpp.obj CMakeFiles/TA_DFA_1.dir/ENFA.cpp.obj
+build TA_DFA_1.exe: CXX_EXECUTABLE_LINKER__TA_DFA_1_Debug CMakeFiles/TA_DFA_1.dir/main.cpp.obj CMakeFiles/TA_DFA_1.dir/DFA.cpp.obj CMakeFiles/TA_DFA_1.dir/State.cpp.obj CMakeFiles/TA_DFA_1.dir/RE.cpp.obj CMakeFiles/TA_DFA_1.dir/ENFA.cpp.obj CMakeFiles/TA_DFA_1.dir/Table.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\TA_DFA_1.dir

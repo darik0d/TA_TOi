@@ -5,6 +5,7 @@
 #include "DFA.h"
 #include <algorithm>
 using json = nlohmann::json;
+#include "Table.h"
 
 DFA::DFA(std::string filename) {
     std::ifstream input(filename);
@@ -12,7 +13,7 @@ DFA::DFA(std::string filename) {
     input >> j;
     // Alfabet
     std::tuple<int,int,int> tupl;
-    std::cout << std::setw(4) << j << std::endl;
+    // std::cout << std::setw(4) << j << std::endl;
     alfabet = j["alphabet"].get<std::set<std::string> >();
     // States
     std::vector<json> json_states = j["states"].get<std::vector<json> >();
@@ -89,7 +90,12 @@ DFA DFA::minimize() const{
 }
 
 void DFA::printTable() const{
-
+    Table to_print = Table(all_states);
+    to_print.print();
 }
 
 DFA::DFA() {}
+
+bool DFA::operator==(DFA dfa)const{
+
+}

@@ -3,4 +3,4 @@ project(TA_DFA_1)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(TA_DFA_1 main.cpp DFA.cpp DFA.h State.cpp State.h json.hpp RE.cpp RE.h ENFA.cpp ENFA.h)
+add_executable(TA_DFA_1 main.cpp DFA.cpp DFA.h State.cpp State.h json.hpp RE.cpp RE.h ENFA.cpp ENFA.h Table.cpp Table.h)

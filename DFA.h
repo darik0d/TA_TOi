@@ -23,7 +23,7 @@ private:
     State* begin_state;
 public:
     DFA();
-
+    bool operator==(DFA dfa)const;
     explicit DFA(std::string filename);
     bool accepts(std::string inp) const;
     void print() const;
