@@ -99,7 +99,7 @@ void RE::recursiveSplit(std::string regex){
     left->eps_char = eps_char;
     right->eps_char = eps_char;
 
-    if(std::count(regex.begin(), regex.end(), '(') == 1) {
+    if(std::count(regex.begin(), regex.end(), '(') == 1 && regex[0] == '(' && regex.back() == ')') {
         regex = regex.substr(1, regex.size()-2);
     }
 
