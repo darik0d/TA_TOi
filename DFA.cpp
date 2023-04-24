@@ -13,7 +13,7 @@ DFA::DFA(std::string filename) {
     // Alfabet
     std::tuple<int,int,int> tupl;
     std::cout << std::setw(4) << j << std::endl;
-    alfabet = j["alphabet"].get<std::set<char> >();
+    alfabet = j["alphabet"].get<std::set<std::string> >();
     // States
     std::vector<json> json_states = j["states"].get<std::vector<json> >();
     std::map<std::string, State*> states;
@@ -27,7 +27,7 @@ DFA::DFA(std::string filename) {
     for(auto transition:json_transitions){
         State* to_edit = states.at(transition.at("from"));
         State* to_state = states.at(transition.at("to"));
-        char char_inp = transition["input"].get<char>();
+        char char_inp = transition["input"].get<std::string>()[0];
         to_edit->addTransition(char_inp, to_state);
     }
     // Begin state
@@ -68,7 +68,8 @@ void DFA::print() const{
         for(auto s: alfabet){
             json obj;
             obj["from"] = state->getName();
-            obj["to"] = state->getTransition(s)->getName();
+            // make char from string
+            obj["to"] = state->getTransition(s[0])->getName();
             obj["input"] = s;
             j["transitions"][i] = obj;
             i++;
@@ -81,3 +82,14 @@ RE DFA::toRE() const {
     RE to_return;
     return to_return;
 }
+
+DFA DFA::minimize() const{
+    DFA to_return;
+    return to_return;
+}
+
+void DFA::printTable() const{
+
+}
+
+DFA::DFA() {}

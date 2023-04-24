@@ -16,16 +16,20 @@
 #include <set>
 class DFA {
 private:
-    std::set<char> alfabet;
+    std::set<std::string> alfabet;
     // State: <input_symb, output_state>
     std::vector<State*> accepting_states;
     std::vector<State*> all_states;
     State* begin_state;
 public:
+    DFA();
+
     explicit DFA(std::string filename);
     bool accepts(std::string inp) const;
     void print() const;
     RE toRE() const;
+    DFA minimize() const;
+    void printTable() const;
 };
 
 
