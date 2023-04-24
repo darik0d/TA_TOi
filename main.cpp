@@ -3,8 +3,23 @@
 #include <iostream>
 using namespace std;
 
+/*no_of_states=22
+no_of_transitions[x]=20
+no_of_transitions[d]=1
+no_of_transitions[i]=2
+no_of_transitions[k]=3
+degree[0]=1
+degree[1]=16
+degree[2]=5
+true
+true
+true
+false
+false
+false*/
 int main() {
     RE re("(kd+x+k)(i)*(k+i)",'x');
+//    RE re("kd+x+k",'x');
     ENFA enfa = re.toENFA();
     enfa.printStats();
 

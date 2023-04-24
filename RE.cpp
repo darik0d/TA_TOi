@@ -54,8 +54,8 @@ ENFA RE::toENFA() const{
             s->setAccepting(false);
             enfa.addArc(s, second.getBeginState(), eps_char);
         }
-        first.getBeginState()->setStarting(false);
-        second.getBeginState()->setStarting(false);
+//        first.getBeginState()->setStarting(false);
+//        second.getBeginState()->setStarting(false);
         // Voeg alle staten toe
         for(auto s:first.getAllStates()) {
             if(s->isStarting() && !s->isAccepting()) enfa.addState(s, true, false);
@@ -66,7 +66,7 @@ ENFA RE::toENFA() const{
             if(s->isAccepting()) enfa.addState(s, false, true);
             else enfa.addState(s, false, false);
         }
-        enfa.getBeginState()->setStarting(true);
+         enfa.getBeginState()->setStarting(true);
     }
     if(kleene_ster){
             ENFA to_return = *(new ENFA);
@@ -82,7 +82,7 @@ ENFA RE::toENFA() const{
                 to_return.addArc(s,enfa.getBeginState(), eps_char);
             }
             to_return.addArc(begin, end, eps_char);
-            enfa.getBeginState()->setStarting(false);
+            // enfa.getBeginState()->setStarting(false);
             // Voeg alle staten van ENFA toe
             for(auto s:enfa.getAllStates()) to_return.addState(s, false, false);
             return to_return;
@@ -98,6 +98,11 @@ void RE::recursiveSplit(std::string regex){
     addLeftAndRight();
     left->eps_char = eps_char;
     right->eps_char = eps_char;
+
+    if(std::count(regex.begin(), regex.end(), '(') == 1) {
+        regex = regex.substr(1, regex.size()-2);
+    }
+
     // Recursive
     // Only one char? add it to symbool. No recursive call
     if(regex.size() == 0) return; // normaal gezien kan dat nooit
@@ -174,9 +179,16 @@ void RE::recursiveSplit(std::string regex){
         }
         else{
             // Concatenation
-            left -> symbool = regex[0];
-            right->recursiveSplit(regex.substr(1));
-            operation = '.';
+            // Distr regel
+            if(regex.find('+') != std::string::npos){
+                operation = '+';
+                left->recursiveSplit(regex.substr(0, regex.find('+')));
+                right->recursiveSplit(regex.substr(regex.find('+')+1));
+            }else{
+                left -> symbool = regex[0];
+                right->recursiveSplit(regex.substr(1));
+                operation = '.';
+            }
         }
     }
 }
