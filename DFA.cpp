@@ -79,10 +79,6 @@ void DFA::print() const{
     std::cout << std::setw(4) << j << std::endl;
 }
 
-RE DFA::toRE() const {
-    RE to_return;
-    return to_return;
-}
 
 DFA DFA::minimize() const{
     DFA to_return;
@@ -97,5 +93,5 @@ void DFA::printTable() const{
 DFA::DFA() {}
 
 bool DFA::operator==(DFA dfa)const{
-
+    return true;
 }

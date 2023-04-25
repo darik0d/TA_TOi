@@ -1,2 +1,4 @@
 TODO:
-- 
+- first iter of tf algo (with end states)
+- second and next iterations
+- == overload

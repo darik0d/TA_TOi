@@ -12,7 +12,6 @@
 #include <tr1/tuple>
 #include <iomanip>
 #include "json.hpp"
-#include "RE.h"
 #include <set>
 class DFA {
 private:
@@ -27,7 +26,6 @@ public:
     explicit DFA(std::string filename);
     bool accepts(std::string inp) const;
     void print() const;
-    RE toRE() const;
     DFA minimize() const;
     void printTable() const;
 };
