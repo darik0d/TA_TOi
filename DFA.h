@@ -13,6 +13,7 @@
 #include <iomanip>
 #include "json.hpp"
 #include <set>
+#include "Table.h"
 class DFA {
 private:
     std::set<std::string> alfabet;
@@ -20,13 +21,14 @@ private:
     std::vector<State*> accepting_states;
     std::vector<State*> all_states;
     State* begin_state;
+    Table table;
 public:
     DFA();
     bool operator==(DFA dfa)const;
     explicit DFA(std::string filename);
     bool accepts(std::string inp) const;
     void print() const;
-    DFA minimize() const;
+    DFA minimize();
     void printTable() const;
 };
 

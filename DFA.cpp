@@ -79,15 +79,15 @@ void DFA::print() const{
     std::cout << std::setw(4) << j << std::endl;
 }
 
-
-DFA DFA::minimize() const{
+DFA DFA::minimize() {
     DFA to_return;
+    table = Table(all_states, alfabet);
+    table.arrangeTable();
     return to_return;
 }
 
 void DFA::printTable() const{
-    Table to_print = Table(all_states);
-    to_print.print();
+    table.print();
 }
 
 DFA::DFA() {}
