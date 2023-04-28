@@ -162,6 +162,7 @@ std::vector<State*> Table::getMergedStates() const{
         for (auto sym: alfabet) {
             // Get from reference
             std::string name_of_referenced_state = s->getName().substr(1, s->getName().find(',')-1);
+            if(name_of_referenced_state.back() == '}') name_of_referenced_state = name_of_referenced_state.substr(0, name_of_referenced_state.size()-1);
             State *from_reference;
             for(auto ref: states){
                 if(ref->getName() == name_of_referenced_state) {
