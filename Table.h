@@ -17,10 +17,12 @@ class Table {
 public:
     Table();
     void setBool(std::string A, std::string B, bool b);
-    Table(std::vector<State*> all_states, std::set<std::string> alfab);
+    Table(const std::vector<State*>& all_states, std::set<std::string> alfab);
     void print() const;
     bool getBool(std::string A, std::string B) const;
     void arrangeTable();
+    std::vector<State*> getMergedStates() const;
+    std::vector<State*> getEquivalentStates(State* s) const;
 };
 
 

@@ -82,7 +82,15 @@ void DFA::print() const{
 DFA DFA::minimize() {
     DFA to_return;
     table = Table(all_states, alfabet);
+    // TF algo
     table.arrangeTable();
+    // Now we have to build DFA with given info
+    to_return.alfabet = alfabet;
+    to_return.all_states = table.getMergedStates();
+    for(auto s: to_return.all_states){
+        if(s->isStarting()) to_return.begin_state = s;
+        if(s->isAccepting()) to_return.accepting_states.push_back(s);
+    }
     return to_return;
 }
 
