@@ -101,5 +101,10 @@ void DFA::printTable() const{
 DFA::DFA() {}
 
 bool DFA::operator==(DFA dfa)const{
-    return true;
+    std::vector<State*> vector_union = all_states;
+    vector_union.insert(vector_union.end(), dfa.all_states.begin(), dfa.all_states.end());
+    Table table_union = Table(vector_union, alfabet);
+    table_union.arrangeTable();
+    table_union.print();
+    return !table_union.getBool(begin_state->getName(), dfa.begin_state->getName());
 }

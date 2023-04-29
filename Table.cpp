@@ -68,7 +68,7 @@ void Table::print() const{
         if (naam == *states_names.begin()) continue;
         std::cout << naam;
         for(int k = 0; k < cells[i].size(); k++) {
-            std::cout << "\t";
+            std::cout << "   ";
             if(cells[i][k]) std::cout << "X";
             else std::cout << "-";
         }
@@ -76,10 +76,10 @@ void Table::print() const{
         std::cout << std::endl;
     }
     // Print the last line
-    std::cout << " \t";
+    std::cout << "    ";
     for(auto naam:states_names){
         if (naam == *states_names.rbegin()) continue;
-        std::cout << naam << "\t";
+        std::cout << naam << "   ";
     }
     std::cout << std::endl;
 }
@@ -133,7 +133,7 @@ std::vector<State*> Table::getMergedStates() const{
         // Add all names
         for(const auto& name:names){
             state_name.append(name);
-            if(name != *names.rbegin()) state_name.append(",");
+            if(name != *names.rbegin()) state_name.append(", ");
         }
         state_name.append("}");
         bool is_starting = false;
